@@ -1,26 +1,25 @@
 
 
-const anagram = function (arrayWords) {
-    let map = new Map();
+const anagram = (arrayWords) => {
+    const object = {}
     
     for (let word of arrayWords) {
-        let sorted = word.toLowerCase().split("").sort().join("");
-        if (map.has(sorted)){
-            let arr = map.get(sorted);
-            arr.push(word);
-            arr.sort();
-            map.set(sorted, arr);
-        }
-        else {
-            let arr = new Array()
-            arr.push(word);
-            map.set(sorted, arr)
+        let sorted = [...word.toLowerCase()].sort().join("");
+        if (object[sorted] !== undefined) {
+            object[sorted].push(word)
+            object[sorted].sort()
+        } else {
+            object[sorted] = new Array()
+            object[sorted].push(word)
         }
     }
-    map.forEach(function (value, key, map) {
-        if (value.length < 2) {
-            map.delete(key);
+    const result = new Array()
+    for (field in object) {
+        if (object[field].length > 1) {
+            result.push(object[field])
         }
-    });
-    return Array.from( map.values()).sort();
+    }
+
+
+    return result.sort();
 }
