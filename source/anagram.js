@@ -3,7 +3,7 @@
 const anagram = (arrayWords) => {
     const object = {}
     
-    arrayWords.forEach(function (word) {
+    arrayWords.forEach((word) => {
         let sorted = [...word.toLowerCase()].sort().join("");
         if (object[sorted] !== undefined) {
             object[sorted].push(word)
