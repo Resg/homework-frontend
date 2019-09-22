@@ -1,24 +1,25 @@
 
 
 const anagram = (arrayWords) => {
-    const object = {}
-    
-    arrayWords.forEach((word) => {
+    const anagramMap = {};
+    arrayWords.reduce((previousValue, word) =>  {
         let sorted = [...word.toLowerCase()].sort().join("");
-        if (object[sorted] !== undefined) {
-            object[sorted].push(word)
-            object[sorted].sort()
+        if (anagramMap[sorted]) {
+            anagramMap[sorted].push(word);
+            anagramMap[sorted].sort();
         } else {
-            object[sorted] = new Array()
-            object[sorted].push(word)
+            anagramMap[sorted] = [];
+            anagramMap[sorted].push(word);
         }
-    })
-    const result = new Array()
-    for (field in object) {
-        if (object[field].length > 1) {
-            result.push(object[field])
+    }, '');
+
+    const result = [];
+    Object.values(anagramMap).reduce( (previousValue, value) => {
+        if (value.length > 1) {
+            result.push(value);
         }
-    }
+    }, '');
+
 
 
     return result.sort();
