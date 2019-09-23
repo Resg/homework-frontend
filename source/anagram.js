@@ -7,6 +7,8 @@ const anagram = (arrayWords) => {
                 [sorted]: result.hasOwnProperty(sorted) ? [...result[sorted], word] : [word]
             }
     }, {});
-    const result = Object.values(anagramMap).reduce((result, value) => ( (value.length > 1) ? [...result, value.sort()] : result ), []);
+    const result = Object.values(anagramMap).reduce((result, value) => (
+        value.length > 1 ? [...result, value.sort()] : result
+    ), []);
     return result.sort();
 };
