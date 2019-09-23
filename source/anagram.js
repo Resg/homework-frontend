@@ -1,26 +1,15 @@
 
 
 const anagram = (arrayWords) => {
-    const anagramMap = {};
-    arrayWords.reduce((previousValue, word) =>  {
-        let sorted = [...word.toLowerCase()].sort().join("");
-        if (anagramMap[sorted]) {
-            anagramMap[sorted].push(word);
-            anagramMap[sorted].sort();
-        } else {
-            anagramMap[sorted] = [];
-            anagramMap[sorted].push(word);
-        }
-    }, '');
-
-    const result = [];
-    Object.values(anagramMap).reduce( (previousValue, value) => {
-        if (value.length > 1) {
-            result.push(value);
-        }
-    }, '');
+    const anagramMap = arrayWords.reduce((result, word) =>
+        ({
+            ...result, [[...word.toLowerCase()].sort().join("")]:
+                result.hasOwnProperty([...word.toLowerCase()].sort().join(""))?[...result[[[...word.toLowerCase()].sort().join("")]], word] : [word]
+    }), {});
 
 
+    const result = Object.values(anagramMap).reduce((result, value) => { return ((value.length > 1) ? [...result, value.sort()]: result) }, []);
+    console.log(result);
 
     return result.sort();
-}
+};
